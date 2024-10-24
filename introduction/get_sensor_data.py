@@ -14,15 +14,21 @@ sys.path.append(os.path.join(os.path.abspath(os.path.dirname(__file__)), '..', '
 
 from spark_agent import SparkAgent
 
-
 class MyAgent(SparkAgent):
     def think(self, perception):
         angle = 0
         temperature = 0
         # YOUR CODE HERE
-        # get angle and temperature to current data of joint HeadYaw
-
+        # Get angle and temperature of joint HeadYaw ('hj1')
+        if 'hj1' in perception.joint:    # angle
+            angle = perception.joint['hj1']
+            
+        if 'hj1' in perception.joint_temperature:    # temperature
+            temperature = perception.joint_temperature['hj1']
+        
+        # Print the results
         print('HeadYaw angle: ' + str(angle) + ' temperature: ' + str(temperature))
+        
         return super(MyAgent, self).think(perception)
 
 if '__main__' == __name__:
